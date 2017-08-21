@@ -34,8 +34,6 @@ const composeOrderSql = (orders = []) => {
 }
 
 const queryCreator = R.curry((connect, tablename) => {
-	const select = `select * from ${tablename}`;
-
 	const queryPromise = async con => makePromise((await con).query, await con);
 	const insert = async item => (await queryPromise(connect))(`insert into ${tablename} set ?`, item);
 	const count = async cond => (await queryPromise(connect))(`select count(1) from ${tablename} ` + composeWhereSql(cond))
