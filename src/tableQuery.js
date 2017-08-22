@@ -1,6 +1,7 @@
 const R = require('ramda');
 const {
-	makePromise
+	makePromise,
+	log
 } = require('./utils');
 
 const typeString = param => R.is(String, param) ? `"${param}"` :
@@ -74,7 +75,7 @@ const queryCreator = R.curry((connect, tablename) => {
 			${empty(offset, ` OFFSET ${offset} `)}
 		`;
 
-		console.log('str', str);
+		log('str', str);
 		return (await queryPromise(connect))(str);
 	};
 
@@ -114,90 +115,3 @@ const queryCreator = R.curry((connect, tablename) => {
 });
 
 module.exports = queryCreator;
-
-const mysql = require('mysql');
-
-const connection = mysql.createConnection({
-	connectionLimit: 10,
-	host: 'localhost',
-	user: 'root',
-	password: '1234',
-	database: 'wind'
-});
-
-const tq = queryCreator(connection, 'flaming_table');
-
-// tq.query({
-// 	orderBy: { field: 'id', order: 'desc' },
-// 	fields: ['year', 'title']
-// }).then(console.log)
-
-// tq.query({
-// 	where: {
-// 		year: null
-// 	},
-// 	fields: ['id','title'],
-// 	orderBy: [{
-// 		field: 'title',
-// 		order: 'desc'
-// 	},{
-// 		field: 'id',
-// 		order: 'desc'
-// 	}],
-// 	limit: 10,
-// }).then(console.log)
-
-// tq.query({
-// 	fields: ['id','title'],
-// 	orderBy: [{
-// 		field: 'title',
-// 		order: 'desc'
-// 	},{
-// 		field: 'id',
-// 		order: 'desc'
-// 	}],
-// 	limit: 10,
-// })
-// .then(a => a.map(x => x.title))
-// 	.then(console.log)
-
-// tq.query().then(console.log);
-
-// tq.transaction(
-// 	() => tq.select({
-// 		year: 2000
-// 	}),
-// 	r => {
-// 		console.log('r => ', r);
-// 		return tq.insert({
-// 			title: 'newthing'
-// 		})
-// 	},
-// 	() => tq.insert({
-// 		id: 200
-// 	}),
-// 	r => {
-// 		console.log('r a', r);
-// 		return tq.count()
-// 	}
-// ).then(console.log).catch(console.log)
-
-// tq.select().then(a => console.log(a.length));
-// tq.select({id: [200, 250, 300], year: null}).then(console.log)
-// tq.count({year: () => 'year is not null'}).then(console.log)
-
-// tq.query({
-// 	select: '*',
-// 	where: {
-// 		id: [193, 194, 195, 290]
-// 	},
-// 	orderBy: 'id desc'
-// }).then(console.log)
-
-// tq.exists().then(console.log)
-// tq.insertIfNotExists({
-// 	id: 200
-// }).then(console.log)
-
-// tq.update({ id: 193 }, { title: 'pengran xindongss' }).then(console.log);
-// tq.remove({id: 290}).then(console.log)

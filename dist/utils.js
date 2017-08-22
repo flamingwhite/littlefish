@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var makePromise = function makePromise(fn, context) {
 	return function () {
@@ -15,6 +15,14 @@ var makePromise = function makePromise(fn, context) {
 	};
 };
 
+var dev = ['dev', 'development'].includes(process.env.NODE_ENV);
+var log = function log() {
+	var _console;
+
+	return dev && (_console = console).log.apply(_console, arguments);
+};
+
 module.exports = {
-	makePromise: makePromise
+	makePromise: makePromise,
+	log: log
 };

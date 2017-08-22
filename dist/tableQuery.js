@@ -5,7 +5,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 var R = require('ramda');
 
 var _require = require('./utils'),
-    makePromise = _require.makePromise;
+    makePromise = _require.makePromise,
+    log = _require.log;
 
 var typeString = function typeString(param) {
 	return R.is(String, param) ? '"' + param + '"' : String(param);
@@ -102,7 +103,7 @@ var queryCreator = R.curry(function (connect, tablename) {
 
 		var str = '\n\t\t\tSELECT ' + empty(distinct, 'DISTINCT') + ' ' + getFieldStr(select) + '\n\t\t\tFROM ' + tablename + '\n\t\t\t' + composeWhereSql(where) + '\n\t\t\t' + empty(groupBy, ' GROUP BY ' + groupBy + ' ') + '\n\t\t\t' + empty(having, ' HAVING ' + having + ' ') + '\n\t\t\t' + composeOrderSql(orderBy) + '\n\t\t\t' + empty(limit, ' LIMIT ' + limit + ' ') + '\n\t\t\t' + empty(offset, ' OFFSET ' + offset + ' ') + '\n\t\t';
 
-		console.log('str', str);
+		log('str', str);
 		return (await queryPromise(connect))(str);
 	};
 
@@ -180,90 +181,3 @@ var queryCreator = R.curry(function (connect, tablename) {
 });
 
 module.exports = queryCreator;
-
-var mysql = require('mysql');
-
-var connection = mysql.createConnection({
-	connectionLimit: 10,
-	host: 'localhost',
-	user: 'root',
-	password: '1234',
-	database: 'wind'
-});
-
-var tq = queryCreator(connection, 'flaming_table');
-
-// tq.query({
-// 	orderBy: { field: 'id', order: 'desc' },
-// 	fields: ['year', 'title']
-// }).then(console.log)
-
-// tq.query({
-// 	where: {
-// 		year: null
-// 	},
-// 	fields: ['id','title'],
-// 	orderBy: [{
-// 		field: 'title',
-// 		order: 'desc'
-// 	},{
-// 		field: 'id',
-// 		order: 'desc'
-// 	}],
-// 	limit: 10,
-// }).then(console.log)
-
-// tq.query({
-// 	fields: ['id','title'],
-// 	orderBy: [{
-// 		field: 'title',
-// 		order: 'desc'
-// 	},{
-// 		field: 'id',
-// 		order: 'desc'
-// 	}],
-// 	limit: 10,
-// })
-// .then(a => a.map(x => x.title))
-// 	.then(console.log)
-
-// tq.query().then(console.log);
-
-// tq.transaction(
-// 	() => tq.select({
-// 		year: 2000
-// 	}),
-// 	r => {
-// 		console.log('r => ', r);
-// 		return tq.insert({
-// 			title: 'newthing'
-// 		})
-// 	},
-// 	() => tq.insert({
-// 		id: 200
-// 	}),
-// 	r => {
-// 		console.log('r a', r);
-// 		return tq.count()
-// 	}
-// ).then(console.log).catch(console.log)
-
-// tq.select().then(a => console.log(a.length));
-// tq.select({id: [200, 250, 300], year: null}).then(console.log)
-// tq.count({year: () => 'year is not null'}).then(console.log)
-
-// tq.query({
-// 	select: '*',
-// 	where: {
-// 		id: [193, 194, 195, 290]
-// 	},
-// 	orderBy: 'id desc'
-// }).then(console.log)
-
-// tq.exists().then(console.log)
-// tq.insertIfNotExists({
-// 	id: 200
-// }).then(console.log)
-
-// tq.update({ id: 193 }, { title: 'pengran xindongss' }).then(console.log);
-// tq.remove({id: 290}).then(console.log)

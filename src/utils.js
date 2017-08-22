@@ -4,9 +4,10 @@ const makePromise = (fn, context) => (...args) =>
 		if (r.then) resolve(r);
 	});
 
-
+const dev = ['dev', 'development'].includes(process.env.NODE_ENV);
+const log = (...msg) => dev && console.log(...msg);
 
 module.exports = {
-	makePromise
+	makePromise,
+	log
 };
-
