@@ -38,6 +38,7 @@ let firePush = curry((ref, data) => {
 	let newRecord = ref.push();
 	newRecord.set({ ...data
 	});
+	return newRecord;
 });
 
 let fireUpdate = curry((ref, data) => ref.set(data));
