@@ -12,7 +12,6 @@
   "dependencies": {
     "firebase": "^4.3.0",
     "mysql": "^2.14.1",
-    "mysql2": "^1.4.1",
     "ramda": "^0.24.1",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4",
