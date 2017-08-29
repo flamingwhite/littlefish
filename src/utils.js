@@ -9,5 +9,6 @@ const log = (...msg) => dev && console.log(...msg);
 
 module.exports = {
 	makePromise,
-	log
+	log, 
+	dev
 };

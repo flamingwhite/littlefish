@@ -24,5 +24,6 @@ var log = function log() {
 
 module.exports = {
 	makePromise: makePromise,
-	log: log
+	log: log,
+	dev: dev
 };

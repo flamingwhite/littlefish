@@ -10,6 +10,7 @@
   "author": "Yong Wang <yongwang.cs@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "firebase": "^4.3.0",
     "mysql": "^2.14.1",
     "mysql2": "^1.4.1",
     "ramda": "^0.24.1",

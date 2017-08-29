@@ -1,12 +1,14 @@
 var tableQuery = require('./dist/tableQuery');
 var fileDownloader = require('./dist/fileDownloader');
-var fsDog = require('./dist/fsDog');
+var fsdog = require('./dist/fsdog');
+var firedog = require('./dist/firedog');
 
 
 module.exports = {
 	tableQuery,
 	fileDownloader,
-	fsDog
+	fsdog,
+	firedog
 };
 
 
