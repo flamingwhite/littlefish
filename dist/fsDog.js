@@ -1,14 +1,21 @@
 'use strict';
 
-var sh = require('shelljs');
 var fs = require('fs');
 
-var fileExists = function fileExists(filename) {
-	return fs.existsSync(filename);
+var fileExists = function fileExists(filePath) {
+  return fs.existsSync(filePath);
 };
 
-// const isFile = filename => fileExists(filename) && sh.ls('-l', filename).isFile();
+var isFile = function isFile(filePath) {
+  return fileExists(filePath) && fs.lstatSync(filePath).isFile();
+};
+
+var isDirectory = function isDirectory(filePath) {
+  return fileExists(filePath) && fs.lstatSync(filePath).isDirectory();
+};
 
 module.exports = {
-	fileExists: fileExists
+  fileExists: fileExists,
+  isFile: isFile,
+  isDirectory: isDirectory
 };

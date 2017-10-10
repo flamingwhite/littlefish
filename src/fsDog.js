@@ -1,10 +1,15 @@
-const sh = require('shelljs');
 const fs = require('fs');
 
-const fileExists = filename => fs.existsSync(filename);
+const fileExists = filePath => fs.existsSync(filePath);
 
-// const isFile = filename => fileExists(filename) && sh.ls('-l', filename).isFile();
+const isFile = filePath =>
+  fileExists(filePath) && fs.lstatSync(filePath).isFile();
+
+const isDirectory = filePath =>
+  fileExists(filePath) && fs.lstatSync(filePath).isDirectory();
 
 module.exports = {
-	fileExists
+  fileExists,
+  isFile,
+  isDirectory
 };

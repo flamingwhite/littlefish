@@ -61,6 +61,7 @@ fireArrayStream('users/').subscribe(function (v) {
 var firePush = curry(function (ref, data) {
 	var newRecord = ref.push();
 	newRecord.set(_extends({}, data));
+	return newRecord;
 });
 
 var fireUpdate = curry(function (ref, data) {
